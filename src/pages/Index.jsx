@@ -1,12 +1,39 @@
-import { Box, Container, VStack, Text, Image, Flex, Heading, Button, SimpleGrid, Link } from "@chakra-ui/react";
+import { Box, Container, VStack, Text, Image, Flex, Heading, Button, SimpleGrid, Link, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import { useState } from "react";
 
 const Index = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearchSubmit = () => {
+    // Logic to handle search submission, e.g., filter products based on searchQuery
+    console.log("Search submitted:", searchQuery);
+  };
+
   return (
     <Container maxW="container.xl" p={0}>
       {/* Navigation Bar */}
       <Flex as="nav" bg="blue.800" color="white" p={4} justifyContent="space-between" alignItems="center">
         <Heading size="lg">ElectroShop</Heading>
+        <InputGroup maxW="400px" mx={4}>
+          <Input
+            placeholder="Search for products..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                handleSearchSubmit();
+              }
+            }}
+          />
+          <InputRightElement>
+            <Button colorScheme="blue" onClick={handleSearchSubmit}>Search</Button>
+          </InputRightElement>
+        </InputGroup>
         <Flex>
           <Link href="#" p={2}>Home</Link>
           <Link href="#" p={2}>Products</Link>
